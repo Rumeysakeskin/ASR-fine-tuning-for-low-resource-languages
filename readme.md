@@ -12,4 +12,4 @@ We will modify the decoder layer (thereby changing the model's vocabulary) for t
 
 #### Load Citrinet model
 
-<img src="citrinet_model_params.png" width="300" height="121">
+<img src="citrinet_model_params.png" width="340" height="141">
