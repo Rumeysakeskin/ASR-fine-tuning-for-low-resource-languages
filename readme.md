@@ -1,6 +1,6 @@
 ## Finetuning CTC models on other languages
 
-- How to fine-tune models on low-resource languages efficiently?
+- **How to fine-tune models on low-resource languages efficiently?**
 
 ### Sub-word Encoding CTC Model
 
