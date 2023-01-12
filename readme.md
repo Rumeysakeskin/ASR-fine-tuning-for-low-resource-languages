@@ -2,6 +2,19 @@
 For this project, we will attempt to fine-tune a ASR model onto speech dataset for Turkish.
 This repo will also allow us to discuss in detail how to **fine-tune a pre-trained model onto a new low-resource language with a small dataset.**
 
+### Table of Contents
+
+- [Download and Prepare Free Audio Data for ASR](#Download-and-Prepare-Free-Audio-Data-for-ASR)
+- [Custom ASR Data Preperation](#Custom-ASR-Data-Preperation)
+- [Speech Data Augmentation](#Speech-Data-Augmentation)
+- [Sub-word Encoding CTC Model](#Sub-word-Encoding-CTC-Model)
+- [The necessity of subword tokenization](#The-necessity-of-subword-tokenization)
+- [Build Custom Subword Tokenizer](#Build-Custom-Subword-Tokenizer)
+- [Specifying Model with YAML Config File](#Specifying-Model-with-YAML-Config-File)
+- [Citrinet Model Parameters](#Citrinet-Model-Parameters)
+- [Specifying the Tokenizer to The Model and Update Custom Vocabulary](#Specifying-the-Tokenizer-to-The-Model-and-Update-Custom-Vocabulary)
+- [Training with PyTorch Lightning](#Training-with-PyTorch-Lightning)
+
 ### Download and Prepare Free Audio Data for ASR
 You can download and create `manifest.jsonl` from some of the common publically available speech dataset in **English**, **Turkish** and some **other languages** from my repository [speech-datasets-for-ASR](https://github.com/Rumeysakeskin/speech-datasets-for-ASR).
 
