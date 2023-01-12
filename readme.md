@@ -1,6 +1,12 @@
-## Finetuning CTC models on other languages
+## Finetuning ASR Model on Low Resource Languages (Turkish)
+For this project, we will attempt to fine-tune a ASR model onto speech dataset for Turkish.
+This repo will also allow us to discuss in detail how to **fine-tune a pre-trained model onto a new low-resource language with a small dataset.**
 
-- **How to fine-tune models on low-resource languages efficiently?**
+### Sub-word Encoding CTC Model
+A sub-encoding model accepts a sub-word tokenized text corpus and emits sub-word tokens in its decoding step. 
+This repository will detail how we prepare a CTC model which utilizes a sub-word Encoding scheme.
+We will utilize a pre-trained Citrinet model trained on roughly 7,000 hours of English speech as the base model. 
+We will modify the decoder layer (thereby changing the model's vocabulary) for training.
 
 ### Download and Prepare Free Audio Data for ASR
 You can download and create `manifest.jsonl` from some of the common publically available speech dataset in **English**, **Turkish** and some **other languages** from my repository [speech-datasets-for-ASR](https://github.com/Rumeysakeskin/speech-datasets-for-ASR).
@@ -30,15 +36,6 @@ NeMo script was used to easily build a tokenizer for Turkish speech dataset.
 Open the `tokenizer_for_sub_word_encoding_CTC_model.ipynb` script in the Colab and create your custom tokenizer for your dataset.
 
 **Note:** You can find more information about subword tokenization in [Finetuning CTC models on other languages](https://github.com/NVIDIA/NeMo/blob/main/tutorials/asr/ASR_CTC_Language_Finetuning.ipynb) for your language.
-
-
-### Sub-word Encoding CTC Model
-
-A sub-encoding model accepts a sub-word tokenized text corpus and emits sub-word tokens in its decoding step. 
-This repository will detail how we prepare a CTC model which utilizes a sub-word Encoding scheme.
-
-We will utilize a pre-trained Citrinet model trained on roughly 7,000 hours of English speech as the base model. 
-We will modify the decoder layer (thereby changing the model's vocabulary) for training.
 
 #### Load Citrinet model
 
