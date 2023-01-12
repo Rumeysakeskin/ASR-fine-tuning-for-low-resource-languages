@@ -2,12 +2,6 @@
 For this project, we will attempt to fine-tune a ASR model onto speech dataset for Turkish.
 This repo will also allow us to discuss in detail how to **fine-tune a pre-trained model onto a new low-resource language with a small dataset.**
 
-### Sub-word Encoding CTC Model
-A sub-encoding model accepts a sub-word tokenized text corpus and emits sub-word tokens in its decoding step. 
-This repository will detail how we prepare a CTC model which utilizes a sub-word Encoding scheme.
-We will utilize a pre-trained Citrinet model trained on roughly 7,000 hours of English speech as the base model. 
-We will modify the decoder layer (thereby changing the model's vocabulary) for training.
-
 ### Download and Prepare Free Audio Data for ASR
 You can download and create `manifest.jsonl` from some of the common publically available speech dataset in **English**, **Turkish** and some **other languages** from my repository [speech-datasets-for-ASR](https://github.com/Rumeysakeskin/speech-datasets-for-ASR).
 
@@ -22,6 +16,12 @@ The `audio_filepath` field should provide an absolute path to the `.wav` file co
 ### Speech Data Augmentation
 Also, you can use my repository [
 speech-data-augmentation](https://github.com/Rumeysakeskin/speech-data-augmentation) to **increase the diversity** of your dataset augmenting the data artificially for ASR models training.
+
+### Sub-word Encoding CTC Model
+A sub-encoding model accepts a sub-word tokenized text corpus and emits sub-word tokens in its decoding step. 
+This repository will detail how we prepare a CTC model which utilizes a sub-word Encoding scheme.
+We will utilize a pre-trained Citrinet model trained on roughly 7,000 hours of English speech as the base model. 
+We will modify the decoder layer (thereby changing the model's vocabulary) for training.
 
 ### Build Custom Subword Tokenizer
 - #### The necessity of subword tokenization
