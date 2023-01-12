@@ -15,4 +15,4 @@ We will modify the decoder layer (thereby changing the model's vocabulary) for t
 <img src="citrinet_model_params.png" width="340" height="141">
 
 #### Referans
-(Jump-start Training for Speech Recognition Models in Different Languages with NVIDIA NeMo)[https://developer.nvidia.com/blog/jump-start-training-for-speech-recognition-models-with-nemo/]
+[Jump-start Training for Speech Recognition Models in Different Languages with NVIDIA NeMo](https://developer.nvidia.com/blog/jump-start-training-for-speech-recognition-models-with-nemo/)
