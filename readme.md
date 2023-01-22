@@ -21,7 +21,7 @@ You can download and create `manifest.jsonl` from some of the common publically 
 ### Custom ASR Data Preperation
 The `nemo_asr` collection expects each dataset to consist of a set of utterances in individual audio files plus a manifest that describes the dataset, with information about one utterance per line `(.json)`.
 Each line of the manifest `(data/train_manifest.jsonl and data/val_manifest.jsonl)` should be in the following format:
-```
+```python
 {"audio_filepath": "/data/train_wav/audio_1.wav", "duration": 2.836326530612245, "text": "bugün hava durumu nasıl"}
 ```
 The `audio_filepath` field should provide an absolute path to the `.wav` file corresponding to the utterance. The `text` field should contain the full transcript for the utterance, and the `duration` field should reflect the duration of the utterance in seconds.
@@ -47,7 +47,7 @@ This means we can perform a larger number of pooling steps in our acoustic model
 
 Following NeMo script was used to easily build a tokenizer for Turkish speech dataset.
 
-```
+```python
 !python scripts/process_asr_text_tokenizer.py \
   --manifest=$train_manifest \
   --vocab_size=$VOCAB_SIZE \
@@ -68,7 +68,7 @@ Our tokenizer is now built and stored inside the `data_root` directory that we p
 - Check for getting the subwords of the transcript or tokenizing a dataset using the same tokenizer as the ASR model. 
 
 Output:
-```
+```python
 [NeMo I 2023-01-12 06:16:05 ctc_bpe_models:341] Changed tokenizer to ['<unk>', '▁', 'a', 'e', 'i', 'n', 'l', 'ı', 'k', 'r', 'm', 't', 'u', 'd', 'y', 's', 'b', 'o', 'z', 'ü', 'ş', 'ar', 'g', 'ç', 'h', 'v', 'p', 'c', 'f', 'ö', 'j', 'w', 'q', '̇', 'x', 'ğ'] vocabulary.
 tokenizer: <nemo.collections.common.tokenizers.sentencepiece_tokenizer.SentencePieceTokenizer object at 0x7fde5605d280>
 tokens: ['▁', 'm', 'e', 'r', 'h', 'a', 'b', 'a', '▁', 'n', 'a', 's', 'ı', 'l', 's', 'ı', 'n']
@@ -79,7 +79,7 @@ text: merhaba nasılsın
 
 ### Specifying Model with YAML Config File
 For this project, we will build citrinet model using the configuration found in `confing/config_bpe.yaml`. You can use another config file for your model in [Nemo ASR conf](https://github.com/NVIDIA/NeMo/tree/main/examples/asr/conf).  
-```
+```python
 import os
 if not os.path.exists("configs/config_bpe.yaml"):
   !wget -P configs/ https://raw.githubusercontent.com/NVIDIA/NeMo/$BRANCH/examples/asr/conf/citrinet/config_bpe.yaml
@@ -93,7 +93,7 @@ with open(config_path) as f:
 
 ### Citrinet Model Parameters
 
-```
+```python
 first_asr_model = nemo_asr.models.EncDecCTCModelBPE(cfg=DictConfig(params['model']))
 ```
 <img src="citrinet_model_params.png" width="340" height="141">
@@ -101,7 +101,7 @@ first_asr_model = nemo_asr.models.EncDecCTCModelBPE(cfg=DictConfig(params['model
 ### Specifying the Tokenizer to The Model and Update Custom Vocabulary
 
 Specify the tokenizer to the model parameters and change the vocabulary of a sub-word encoding ASR model is as simple as passing the path of the tokenizer dir to `change_vocabulary()`.
-```
+```python
 params['model']['tokenizer']['dir'] = TOKENIZER_DIR
 params['model']['tokenizer']['type'] = 'bpe'
 
@@ -111,7 +111,7 @@ first_asr_model.change_vocabulary(new_tokenizer_dir=TOKENIZER_DIR, new_tokenizer
 
 NeMo's models are based on PytorchLightning's LightningModule and we use PytorchLightning for training and fine-tuning as it makes using mixed precision and distributed training very easy.
 
-```
+```python
 trainer = pl.Trainer(devices=1, accelerator='cpu',num_nodes=1,  # accelerator='ddp'
                   max_epochs=EPOCHS,
                   logger=wandb_logger, log_every_n_steps=1,
