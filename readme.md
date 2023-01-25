@@ -2,7 +2,7 @@
 For this project, we will attempt to fine-tune a ASR model onto speech dataset for Turkish.
 This repo will also allow us to discuss in detail how to **fine-tune a pre-trained subword-based (n-gram characters) CTC model onto a new low-resource language with a small dataset.**
 
-### Table of Contents
+### Table of Contents :tada:
 
 - [Download and Prepare Free Audio Data for ASR](#Download-and-Prepare-Free-Audio-Data-for-ASR)
 - [Custom ASR Data Preperation](#Custom-ASR-Data-Preperation)
@@ -62,12 +62,13 @@ Some of the popular subword tokenization algorithms are _WordPiece, Byte-Pair En
 
 - SentencePiece is an extension of two sub-word segmentation algorithms, byte-pair encoding, and a uni-gram language model. SentencePiece does not need pre-tokenized word sequences, unlike BPE and ULM.
 
+<!--
 ---
 ### Tokenization Method for Turkish
 The impact of tokenization algorithms can be different for low-resource languages, such as agglutinative languages, where words can have prefixes and suffixes. For instance, in Turkish, parsing the word "veremedim" (translated as "I could not give") results in "ver-e-me-di-m" including four suffixes in a single word. A Morphological-level tokenizer can output five tokens in this case, providing the model with a better understanding of word semantics. An example benefit is that the language model would relate the suffix "-me" to negation, similar to the word "not" in English. 
 
 Recently, [Xu et al.](https://aclanthology.org/2021.acl-long.571/) approach the problem of finding the best token vocabulary with a proper size in the scope of the trade-off between vocabulary entropy and vocabulary size. The produced vocabularies in diverse scenarios achieve both reduced sizes and performance improvements. In addition, learning optimal vocabulary takes significantly less time than regular BPE-search approach.
-
+-->
 
 
 ---
