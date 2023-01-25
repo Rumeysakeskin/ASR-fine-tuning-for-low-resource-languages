@@ -1,11 +1,12 @@
 ## Finetuning ASR Model on Low Resource Languages (Turkish)
 For this project, we will attempt to fine-tune a ASR model onto speech dataset for Turkish.
-This repo will also allow us to discuss in detail how to **fine-tune a pre-trained subword-based CTC model onto a new low-resource language with a small dataset.**
+This repo will also allow us to discuss in detail how to **fine-tune a pre-trained subword-based (n-gram characters) CTC model onto a new low-resource language with a small dataset.**
 
 ### Table of Contents
 
 - [Download and Prepare Free Audio Data for ASR](#Download-and-Prepare-Free-Audio-Data-for-ASR)
 - [Custom ASR Data Preperation](#Custom-ASR-Data-Preperation)
+- [Text-Pre-processing-(Normalization,-Clean-up)](#Text-Pre-processing-(Normalization,-Clean-up))
 - [Speech Data Augmentation](#Speech-Data-Augmentation)
 - [Sub-word Encoding CTC Model](#Sub-word-Encoding-CTC-Model)
 - [The necessity of subword tokenization](#The-necessity-of-subword-tokenization)
@@ -29,6 +30,13 @@ Each line of the manifest `(data/train_manifest.jsonl and data/val_manifest.json
 The `audio_filepath` field should provide an absolute path to the `.wav` file corresponding to the utterance. The `text` field should contain the full transcript for the utterance, and the `duration` field should reflect the duration of the utterance in seconds.
 
 ---
+### Text Pre-processing (Normalization, Clean-up)
+Text cleaning and normalization is the process of preparing raw text for down-stream process. Open the following notebook for Turkish text normalization.
+```python
+preprocess_manifest_file.ipynb
+```
+
+---
 ### Speech Data Augmentation
 Also, you can use my repository [
 speech-data-augmentation](https://github.com/Rumeysakeskin/speech-data-augmentation) to **increase the diversity** of your dataset augmenting the data artificially for ASR models training.
@@ -44,6 +52,9 @@ We will modify the decoder layer (thereby changing the model's vocabulary) for t
 ### The necessity of subword tokenization
 
 Subword tokenization is a solution between word and character-based tokenization. The main idea is to solve the issues faced by word-based tokenization (very large vocabulary size, large number of OOV tokens, and different meaning of very similar words) and character-based tokenization (very long sequences and less meaningful individual tokens).
+
+As the corpus size increases, the number of unique words increases too and this leads to a larger vocabulary size which causes memory and performance problems during processing.
+
 Subword tokenization not only reduces the length of the tokenized representation (thereby making sentences shorter and more manageable for models to learn), but also boosts the accuracy of prediction of correct tokens.
 
 - Some of the popular subword tokenization algorithms are _WordPiece, Byte-Pair Encoding (BPE), Unigram, and SentencePiece_. 
