@@ -1,6 +1,6 @@
 ## Finetuning ASR Model on Low Resource Languages (Turkish)
 For this project, we will attempt to fine-tune a ASR model onto speech dataset for Turkish.
-This repo will also allow us to discuss in detail how to **fine-tune a pre-trained model onto a new low-resource language with a small dataset.**
+This repo will also allow us to discuss in detail how to **fine-tune a pre-trained subword-based CTC model onto a new low-resource language with a small dataset.**
 
 ### Table of Contents
 
@@ -47,6 +47,7 @@ Subword tokenization is a solution between word and character-based tokenization
 Subword tokenization not only reduces the length of the tokenized representation (thereby making sentences shorter and more manageable for models to learn), but also boosts the accuracy of prediction of correct tokens.
 
 - Some of the popular subword tokenization algorithms are _WordPiece, Byte-Pair Encoding (BPE), Unigram, and SentencePiece_. 
+BPE is used in language models like GPT-2, RoBERTa, XLM, FlauBERT, etc.
 
 ---
 ### Build Custom Subword Tokenizer
