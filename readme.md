@@ -15,9 +15,11 @@ This repo will also allow us to discuss in detail how to **fine-tune a pre-train
 - [Specifying the Tokenizer to The Model and Update Custom Vocabulary](#Specifying-the-Tokenizer-to-The-Model-and-Update-Custom-Vocabulary)
 - [Training with PyTorch Lightning](#Training-with-PyTorch-Lightning)
 
+---
 ### Download and Prepare Free Audio Data for ASR
 You can download and create `manifest.jsonl` from some of the common publically available speech dataset in **English**, **Turkish** and some **other languages** from my repository [speech-datasets-for-ASR](https://github.com/Rumeysakeskin/speech-datasets-for-ASR).
 
+---
 ### Custom ASR Data Preperation
 The `nemo_asr` collection expects each dataset to consist of a set of utterances in individual audio files plus a manifest that describes the dataset, with information about one utterance per line `(.json)`.
 Each line of the manifest `(data/train_manifest.jsonl and data/val_manifest.jsonl)` should be in the following format:
@@ -26,25 +28,30 @@ Each line of the manifest `(data/train_manifest.jsonl and data/val_manifest.json
 ```
 The `audio_filepath` field should provide an absolute path to the `.wav` file corresponding to the utterance. The `text` field should contain the full transcript for the utterance, and the `duration` field should reflect the duration of the utterance in seconds.
 
+---
 ### Speech Data Augmentation
 Also, you can use my repository [
 speech-data-augmentation](https://github.com/Rumeysakeskin/speech-data-augmentation) to **increase the diversity** of your dataset augmenting the data artificially for ASR models training.
 
+---
 ### Sub-word Encoding CTC Model
 A sub-encoding model accepts a sub-word tokenized text corpus and emits sub-word tokens in its decoding step. 
 This repository will detail how we prepare a CTC model which utilizes a sub-word Encoding scheme.
 We will utilize a pre-trained Citrinet model trained on roughly 7,000 hours of English speech as the base model. 
 We will modify the decoder layer (thereby changing the model's vocabulary) for training.
 
-
+---
 ### The necessity of subword tokenization
 
 Subword tokenization is a solution between word and character-based tokenization. The main idea is to solve the issues faced by word-based tokenization (very large vocabulary size, large number of OOV tokens, and different meaning of very similar words) and character-based tokenization (very long sequences and less meaningful individual tokens).
 Subword tokenization not only reduces the length of the tokenized representation (thereby making sentences shorter and more manageable for models to learn), but also boosts the accuracy of prediction of correct tokens.
-Some of the popular subword tokenization algorithms are WordPiece, Byte-Pair Encoding (BPE), Unigram, and SentencePiece. 
 
+- Some of the popular subword tokenization algorithms are _WordPiece, Byte-Pair Encoding (BPE), Unigram, and SentencePiece_. 
+
+---
 ### Build Custom Subword Tokenizer
 
+We will utilize the SentencePiece tokenizer in this study.
 Following NeMo script was used to easily build a tokenizer for Turkish speech dataset.
 
 ```python
@@ -77,6 +84,7 @@ subwords: ['▁', 'm', 'e', 'r', 'h', 'a', 'b', 'a', '▁', 'n', 'a', 's', 'ı',
 text: merhaba nasılsın
 ```
 
+---
 ### Specifying Model with YAML Config File
 For this project, we will build citrinet model using the configuration found in `confing/config_bpe.yaml`. You can use another config file for your model in [Nemo ASR conf](https://github.com/NVIDIA/NeMo/tree/main/examples/asr/conf).  
 ```python
@@ -91,6 +99,7 @@ with open(config_path) as f:
     params = yaml.load(f)
 ```
 
+---
 ### Citrinet Model Parameters
 
 ```python
@@ -98,6 +107,7 @@ first_asr_model = nemo_asr.models.EncDecCTCModelBPE(cfg=DictConfig(params['model
 ```
 <img src="citrinet_model_params.png" width="340" height="141">
 
+---
 ### Specifying the Tokenizer to The Model and Update Custom Vocabulary
 
 Specify the tokenizer to the model parameters and change the vocabulary of a sub-word encoding ASR model is as simple as passing the path of the tokenizer dir to `change_vocabulary()`.
@@ -107,6 +117,8 @@ params['model']['tokenizer']['type'] = 'bpe'
 
 first_asr_model.change_vocabulary(new_tokenizer_dir=TOKENIZER_DIR, new_tokenizer_type="bpe")
 ```
+
+---
 ### Training with PyTorch Lightning
 
 NeMo's models are based on PytorchLightning's LightningModule and we use PytorchLightning for training and fine-tuning as it makes using mixed precision and distributed training very easy.
@@ -121,7 +133,7 @@ first_asr_model.set_trainer(trainer)
 trainer.fit(first_asr_model)
 ```
 
-
+---
 ### Referans
 - [Jump-start Training for Speech Recognition Models in Different Languages with NVIDIA NeMo](https://developer.nvidia.com/blog/jump-start-training-for-speech-recognition-models-with-nemo/)
 - [ASR_with_Subword_Tokenization](https://github.com/NVIDIA/NeMo/blob/main/tutorials/asr/ASR_with_Subword_Tokenization.ipynb)
