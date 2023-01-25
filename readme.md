@@ -127,8 +127,9 @@ with open(config_path) as f:
 
 ```python
 first_asr_model = nemo_asr.models.EncDecCTCModelBPE(cfg=DictConfig(params['model']))
+first_asr_model = first_asr_model.restore_from("stt_en_contextnet_256.nemo")
 ```
-<img src="citrinet_model_params.png" width="340" height="141">
+<img src="citrinet256_model_params.png" width="340" height="141">
 
 ---
 ### Specifying the Tokenizer to The Model and Update Custom Vocabulary
