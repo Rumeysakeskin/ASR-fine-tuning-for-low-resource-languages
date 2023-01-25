@@ -57,8 +57,18 @@ As the corpus size increases, the number of unique words increases too and this 
 
 Subword tokenization not only reduces the length of the tokenized representation (thereby making sentences shorter and more manageable for models to learn), but also boosts the accuracy of prediction of correct tokens.
 
-- Some of the popular subword tokenization algorithms are _WordPiece, Byte-Pair Encoding (BPE), Unigram, and SentencePiece_. 
-BPE is used in language models like GPT-2, RoBERTa, XLM, FlauBERT, etc.
+Some of the popular subword tokenization algorithms are _WordPiece, Byte-Pair Encoding (BPE), Unigram, and SentencePiece_. 
+- BPE is used in language models like GPT-2, RoBERTa, XLM, FlauBERT, etc.
+
+- SentencePiece is an extension of two sub-word segmentation algorithms, byte-pair encoding, and a uni-gram language model. SentencePiece does not need pre-tokenized word sequences, unlike BPE and ULM.
+
+---
+### Tokenization Method for Turkish
+The impact of tokenization algorithms can be different for low-resource languages, such as agglutinative languages, where words can have prefixes and suffixes. For instance, in Turkish, parsing the word "veremedim" (translated as "I could not give") results in "ver-e-me-di-m" including four suffixes in a single word. A Morphological-level tokenizer can output five tokens in this case, providing the model with a better understanding of word semantics. An example benefit is that the language model would relate the suffix "-me" to negation, similar to the word "not" in English. 
+
+Recently, [Xu et al.](https://aclanthology.org/2021.acl-long.571/) approach the problem of finding the best token vocabulary with a proper size in the scope of the trade-off between vocabulary entropy and vocabulary size. The produced vocabularies in diverse scenarios achieve both reduced sizes and performance improvements. In addition, learning optimal vocabulary takes significantly less time than regular BPE-search approach.
+
+
 
 ---
 ### Build Custom Subword Tokenizer
