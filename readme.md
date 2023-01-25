@@ -39,9 +39,9 @@ We will modify the decoder layer (thereby changing the model's vocabulary) for t
 
 ### The necessity of subword tokenization
 
+Subword tokenization is a solution between word and character-based tokenization. The main idea is to solve the issues faced by word-based tokenization (very large vocabulary size, large number of OOV tokens, and different meaning of very similar words) and character-based tokenization (very long sequences and less meaningful individual tokens).
 Subword tokenization not only reduces the length of the tokenized representation (thereby making sentences shorter and more manageable for models to learn), but also boosts the accuracy of prediction of correct tokens.
-By reducing the target sentence length by subword tokenization (target sentence here being the characters/subwords transcribed from the audio signal), we entirely sidestep the sequence length limitation of CTC loss!
-This means we can perform a larger number of pooling steps in our acoustic models, thereby improving execution speed while simultaneously reducing memory requirements.
+Some of the popular subword tokenization algorithms are WordPiece, Byte-Pair Encoding (BPE), Unigram, and SentencePiece. 
 
 ### Build Custom Subword Tokenizer
 
